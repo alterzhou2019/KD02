@@ -1,0 +1,35 @@
+﻿@model List<string>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-3.3.1.intellisense.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.prettyPhoto.js"></script>
+
+<script src="~/Scripts/jquery-3.3.1.slim.js"></script>
+
+<script src="~/Scripts/jquery-3.3.1.slim.min.js"></script>
+
+<script src="~/Scripts/jquery.prettyPhoto.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("a[rel^='prettyPhoto']").prettyPhoto(
+         {
+             autoplay_slideshow: false,
+             social_tools: false
+         }
+        );
+
+        @{
+            // Convent to HTML base64 format.
+            List<string> base64Images = new List<string>();
+            foreach (string image in @Model)
+            {
+                base64Images.Add(string.Format("data:image/png;base64,{0}", image));
+            }
+        }
+        api_images = @Html.Raw(Json.Encode(base64Images))
+        $.prettyPhoto.open(api_images);
+    });
+
+</script>
+
